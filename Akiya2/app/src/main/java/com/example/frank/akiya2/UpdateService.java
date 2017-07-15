@@ -63,9 +63,10 @@ public class UpdateService extends Service
         RemoteViews view = new RemoteViews(getPackageName(), R.layout.new_app_widget);
 
         RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(), R.layout.new_app_widget);
+        //remoteViews.setImageViewResource(R.id.imageView,R.drawable.test2);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         appWidgetManager.updateAppWidget(new ComponentName(this, NewAppWidget.class), remoteViews);
-        remoteViews.setTextViewText(R.id.appwidget_text,"目前是"+i);
+        //remoteViews.setTextViewText(R.id.appwidget_text,"目前是"+i);
 
 /*
 
@@ -99,7 +100,28 @@ public class UpdateService extends Service
         // 2. 获取RemoteViews对象
         RemoteViews views = new RemoteViews(getApplicationContext().getPackageName(), R.layout.new_app_widget);
         // 3. 显示时间widget
-        views.setTextViewText(R.id.appwidget_text, str +"\n"+"還有"+ dayDiff + "天");
+        views.setTextViewText(R.id.appwidget_text, str +"還有"+ dayDiff + "天");
+        //views.setImageViewResource(R.id.imageView,R.drawable.test4);
+
+        //更新圖片
+        if(dayDiff >= 10)
+        {
+            views.setImageViewResource(R.id.imageView,R.drawable.test4);
+        }
+        else if(dayDiff >= 5 && dayDiff <10)
+        {
+            views.setImageViewResource(R.id.imageView,R.drawable.test3);
+        }
+        else if(dayDiff >2 && dayDiff <5)
+        {
+            views.setImageViewResource(R.id.imageView,R.drawable.test2);
+        }
+        else
+        {
+            views.setImageViewResource(R.id.imageView,R.drawable.test1);
+        }
+
+
         // 4. 更新widget
         appWidgetManager.updateAppWidget(new ComponentName(this, NewAppWidget.class), views);
 

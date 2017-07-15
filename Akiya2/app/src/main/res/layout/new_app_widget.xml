@@ -15,16 +15,18 @@
         android:textColor="#ffffff"
         android:textSize="24sp"
         android:textStyle="bold|italic"
-        android:layout_marginTop="209dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        app:srcCompat="@drawable/test1"
-        android:layout_below="@+id/appwidget_text"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/test2" />
 
 </RelativeLayout>
