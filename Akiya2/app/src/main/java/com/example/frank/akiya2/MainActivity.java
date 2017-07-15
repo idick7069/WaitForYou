@@ -2,6 +2,7 @@ package com.example.frank.akiya2;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -34,23 +35,28 @@ public class MainActivity extends AppCompatActivity {
     private Long saveday;
     long chooseday;
     private UpdateService mMyService = null;
+    private String TAG = "MainService";
+    private boolean isBound = false;
+    int day,month,year;
 
 
-    private ServiceConnection mServiceConnection = new ServiceConnection()
-    {
+    public ServiceConnection connection = new ServiceConnection() {
+
+        // 成功與 Service 建立連線
         @Override
-        public void onServiceConnected(ComponentName name, IBinder serviceBinder)
-        {
-            // TODO Auto-generated method stub
-            mMyService = ((UpdateService.LocalBinder)serviceBinder).getService();
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mMyService = ((UpdateService.LocalBinder) service).getService();
+            Log.d(TAG, "MainActivity onServiceConnected");
         }
 
-        public void onServiceDisconnected(ComponentName name)
-        {
-            // TODO Auto-generated method stub
-            Log.d("LOG_TAG", "onServiceDisconnected()" + name.getClassName());
+        // 與 Service 建立連線失敗
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mMyService = null;
+            Log.d(TAG, "MainActivity onServiceFailed");
         }
     };
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,16 +75,12 @@ public class MainActivity extends AppCompatActivity {
         textView.setText("還剩："+saveday +"天");
 
 
-        c = Calendar.getInstance();
-        nowMonth = c.get(Calendar.MONTH)+1;
-        nowday = c.get(Calendar.DAY_OF_MONTH);
-        nowYear = c.get(Calendar.YEAR);
 
 
-        //先行定義時間格式
-        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        String str = df.format(c.getTime());
-        Log.d("測試Activity：",str);
+
+        Intent  serviceIntent = new Intent(this, UpdateService.class);
+        isBound = bindService(serviceIntent, connection, BIND_AUTO_CREATE);
+
 
 
     }
@@ -91,9 +93,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void setDay(View view)
     {
+        c = Calendar.getInstance();
+        nowMonth = c.get(Calendar.MONTH)+1;
+        nowday = c.get(Calendar.DAY_OF_MONTH);
+        nowYear = c.get(Calendar.YEAR);
+
+        //先行定義時間格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        String str = df.format(c.getTime());
+        Log.d("測試Activity：",str);
 
         Log.d("MainActivity","setDate");
-        int day,month,year;
+
         day = datePicker.getDayOfMonth();
         month = datePicker.getMonth()+1;
         year = datePicker.getYear();
@@ -111,17 +122,16 @@ public class MainActivity extends AppCompatActivity {
         textView.setText("還剩："+dayDiff +"天");
         leftday = dayDiff;
         chooseday = c2.getTimeInMillis();
+        Log.d("Main","2 = "+dayDiff+" choose = "+c2.getTimeInMillis() + " c. = "+c.getTimeInMillis());
 
 
         //取得SharedPreferences ， 丟入的參數為("名稱" , 存取權限)
-
         settings.edit().putLong("day" , leftday).apply();
         settings.edit().putLong("chooseday" , chooseday).apply();
 
 
-        if (mMyService != null)
-            //mMyService.myMethod(); //透過bindService()可以使用Service中的方法
-            mMyService.buildUpdate();
+           if (mMyService != null)
+                mMyService.buildUpdate();
 
     }
     private void openToast(int month,int day)
@@ -132,8 +142,22 @@ public class MainActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         settings.edit().putLong("day" , leftday).apply();
+
+        settings.edit().putInt("cday",day).apply();
+        settings.edit().putInt("cmonth",month).apply();
+        settings.edit().putInt("cyear",year).apply();
+
         settings.edit().putLong("chooseday" , chooseday).apply();
 
+        if (isBound) {
+            unbind();
+            isBound = false;
+        }
+
+    }
+
+    public void unbind() {
+        unbindService(connection);
     }
 
 }

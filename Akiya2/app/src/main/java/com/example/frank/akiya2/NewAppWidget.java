@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 
 /**
@@ -15,7 +16,7 @@ import android.util.Log;
  */
 public class NewAppWidget extends AppWidgetProvider
 {
-    private static final int UPDATE_DURATION = 1 * 1000; // Widget 更新间隔
+    private static final int UPDATE_DURATION = 1000; // Widget 更新间隔
 
     private PendingIntent pendingIntent = null;
 
@@ -33,6 +34,14 @@ public class NewAppWidget extends AppWidgetProvider
                 SystemClock.elapsedRealtime(), UPDATE_DURATION, pendingIntent);
 
 
+        //點圖
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        Intent configIntent = new Intent(context, MainActivity.class);
+
+        PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+
+        remoteViews.setOnClickPendingIntent(R.id.imageView, configPendingIntent);
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
     }
 
     @Override
@@ -40,8 +49,6 @@ public class NewAppWidget extends AppWidgetProvider
         Log.d("widget","onDisabled");
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
-
-
     }
     private static final String TAG="widget";
 
