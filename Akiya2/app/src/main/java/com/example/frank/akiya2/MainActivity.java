@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         //儲存暫存
         settings = getSharedPreferences("data" , MODE_PRIVATE);
         saveday =  settings.getLong("day",0);
-        textView.setText("還剩："+saveday +"天");
+        textView.setText("還沒選擇唷");
 
 
 
@@ -83,12 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    }
-
-    public void stopService(View view)
-    {
-        Intent it = new Intent(MainActivity.this, UpdateService.class);
-        stopService(it); //結束Service
     }
 
     public void setDay(View view)
@@ -119,7 +113,19 @@ public class MainActivity extends AppCompatActivity {
         Log.d("目前的時間",nowMonth+"月"+nowday+"日");
         Log.d("選擇的時間",month+"月"+day+"日");
         openToast(month,day);
-        textView.setText("還剩："+dayDiff +"天");
+        if(dayDiff >0)
+        {
+            textView.setText("還剩"+dayDiff +"天");
+        }
+        else if(dayDiff == 0)
+        {
+            textView.setText("是今天唷～♥");
+        }
+        else
+        {
+            textView.setText("已經過了呢");
+        }
+
         leftday = dayDiff;
         chooseday = c2.getTimeInMillis();
         Log.d("Main","2 = "+dayDiff+" choose = "+c2.getTimeInMillis() + " c. = "+c.getTimeInMillis());

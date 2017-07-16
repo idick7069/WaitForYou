@@ -74,6 +74,9 @@ public class NewAppWidget extends AppWidgetProvider
     // 当该Widget第一次添加到桌面是调用该方法，可添加多次但只第一次调用
     public void onEnabled(Context context)
     {
+
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        views.setImageViewResource(R.id.imageView,R.drawable.setting);
         Log.d(TAG, "onEnabled");
         super.onEnabled(context);
     }
