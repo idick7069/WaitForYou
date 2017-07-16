@@ -28,7 +28,7 @@
         android:id="@+id/imageView"
         android:layout_width="280dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/test2"
+        app:srcCompat="@drawable/setting"
         android:layout_alignParentTop="true" />
 
 </RelativeLayout>

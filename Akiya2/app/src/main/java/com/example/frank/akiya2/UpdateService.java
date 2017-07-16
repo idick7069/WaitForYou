@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.frank.akiya2.R.id.datePicker;
 import static com.example.frank.akiya2.R.id.imageView;
 
 
@@ -113,23 +114,56 @@ public class UpdateService extends Service
         views.setTextViewText(R.id.appwidget_text, str +"還有"+ dayDiff2+ "天");
         //views.setImageViewResource(R.id.imageView,R.drawable.test4);
 
+
         //更新圖片
         if(dayDiff2 >= 10)
         {
             //大於10天
-            views.setImageViewResource(imageView,R.drawable.more2);
+            views.setImageViewResource(imageView,R.drawable.many);
         }
-        else if(dayDiff2 >= 5 && dayDiff2 <10)
+        else if(dayDiff2 == 9)
         {
-            views.setImageViewResource(imageView,R.drawable.test3);
+            views.setImageViewResource(imageView,R.drawable.day9);
         }
-        else if(dayDiff2 >2 && dayDiff2 <5)
+        else if(dayDiff2 == 8)
         {
-            views.setImageViewResource(imageView,R.drawable.test2);
+            views.setImageViewResource(imageView,R.drawable.day8);
+        }
+        else if(dayDiff2 == 7)
+        {
+            views.setImageViewResource(imageView,R.drawable.day7);
+        }
+        else if(dayDiff2 == 6)
+        {
+            views.setImageViewResource(imageView,R.drawable.day6);
+        }
+        else if(dayDiff2 == 5)
+        {
+            views.setImageViewResource(imageView,R.drawable.day5);
+        }
+        else if(dayDiff2 == 4)
+        {
+            views.setImageViewResource(imageView,R.drawable.day4);
+        }
+        else if(dayDiff2 == 3)
+        {
+            views.setImageViewResource(imageView,R.drawable.day3);
+        }
+        else if(dayDiff2 == 2)
+        {
+            views.setImageViewResource(imageView,R.drawable.day2);
+        }
+        else if(dayDiff2 == 1)
+        {
+            views.setImageViewResource(imageView,R.drawable.day1);
+        }
+        else if(dayDiff2 == 0)
+        {
+            views.setImageViewResource(imageView,R.drawable.day0);
         }
         else
         {
-            views.setImageViewResource(imageView,R.drawable.test1);
+            views.setImageViewResource(imageView,R.drawable.setting);
         }
 
 

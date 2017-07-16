@@ -16,7 +16,7 @@ import android.widget.RemoteViews;
  */
 public class NewAppWidget extends AppWidgetProvider
 {
-    private static final int UPDATE_DURATION = 1000; // Widget 更新间隔
+    private static final int UPDATE_DURATION = 60 * 60 * 1000; // Widget 更新间隔
 
     private PendingIntent pendingIntent = null;
 
@@ -56,6 +56,7 @@ public class NewAppWidget extends AppWidgetProvider
     public void onReceive(Context context, Intent intent)
     {
         Log.d(TAG, "onReceive");
+
         super.onReceive(context, intent);
     }
 

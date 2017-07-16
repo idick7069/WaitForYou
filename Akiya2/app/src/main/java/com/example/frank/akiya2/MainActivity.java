@@ -153,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             unbind();
             isBound = false;
         }
+        if (mMyService != null)
+            mMyService.buildUpdate();
 
     }
 
