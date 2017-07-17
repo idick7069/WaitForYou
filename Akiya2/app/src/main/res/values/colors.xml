@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="japan_sakura">#fcc9b9</color>
+    <color name="japan_momo">#f596aa</color>
+    <color name="japan_karakurena">#d0104c</color>
+    <color name="japan_su">#8e354a</color>
 </resources>

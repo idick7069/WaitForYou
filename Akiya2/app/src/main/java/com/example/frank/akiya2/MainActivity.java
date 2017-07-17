@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     int nowMonth;
     int nowday;
     int nowYear;
-    TextView textView;
+    TextView textView,textView2;
     Calendar c;
     public static long leftday;
 
@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = "MainService";
     private boolean isBound = false;
     int day,month,year;
+    private boolean first = true;
+    int cday,cmonth,cyear;
+    boolean checkclick=false;
 
 
     public ServiceConnection connection = new ServiceConnection() {
@@ -63,19 +66,58 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        checkclick=false;
         //宣告
         btn = (Button)findViewById(R.id.button);
         datePicker = (DatePicker)findViewById(R.id.datePicker);
         textView = (TextView)findViewById(R.id.dateText);
+        textView2 = (TextView)findViewById(R.id.textView);
 
+        datePicker.setScaleX(0.9f);
+        datePicker.setScaleY(0.9f);
         //抓暫存
         //儲存暫存
         settings = getSharedPreferences("data" , MODE_PRIVATE);
         saveday =  settings.getLong("day",0);
-        textView.setText("還沒選擇唷");
 
 
 
+
+        first  = settings.getBoolean("first",true);
+        if(!first)
+        {
+            if(saveday >0)
+            {
+                textView.setText("還剩"+saveday +"天");
+
+            }
+            else if(saveday == 0)
+            {
+                textView.setText("是今天唷～♥");
+            }
+            else
+            {
+                textView.setText("已經過了呢");
+            }
+
+            cday = settings.getInt("cday",0);
+            cmonth = settings.getInt("cmonth",0);
+            cyear =settings.getInt("cyear",0);
+
+            if(cmonth != 0 || cday != 0)
+            {
+                textView2.setText(cmonth + "月" + cday +"日");
+            }
+
+        }
+        else
+        {
+            firstToast();
+            textView2.setText("");
+            textView.setText("還沒選擇唷");
+
+        }
 
 
         Intent  serviceIntent = new Intent(this, UpdateService.class);
@@ -87,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setDay(View view)
     {
+        checkclick = true;
         c = Calendar.getInstance();
         nowMonth = c.get(Calendar.MONTH)+1;
         nowday = c.get(Calendar.DAY_OF_MONTH);
@@ -134,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         //取得SharedPreferences ， 丟入的參數為("名稱" , 存取權限)
         settings.edit().putLong("day" , leftday).apply();
         settings.edit().putLong("chooseday" , chooseday).apply();
-
+        textView2.setText(month + "月" + day +"日");
 
            if (mMyService != null)
                 mMyService.buildUpdate();
@@ -144,24 +187,44 @@ public class MainActivity extends AppCompatActivity {
     {
         Toast.makeText(this, "選擇的時間："+month+"月"+day+"日",Toast.LENGTH_SHORT ).show();
     }
+    private void firstToast()
+    {
+        Toast.makeText(this,"第一次開",Toast.LENGTH_SHORT ).show();
+    }
+
     @Override
     public void onStop() {
         super.onStop();
-        settings.edit().putLong("day" , leftday).apply();
 
-        settings.edit().putInt("cday",day).apply();
-        settings.edit().putInt("cmonth",month).apply();
-        settings.edit().putInt("cyear",year).apply();
+        if(checkclick)
+        {
+            settings.edit().putLong("day" , leftday).apply();
 
-        settings.edit().putLong("chooseday" , chooseday).apply();
+            settings.edit().putInt("cday",day).apply();
+            settings.edit().putInt("cmonth",month).apply();
+            settings.edit().putInt("cyear",year).apply();
+
+            settings.edit().putLong("chooseday" , chooseday).apply();
+        }
+//        settings.edit().putLong("day" , leftday).apply();
+//
+//        settings.edit().putInt("cday",day).apply();
+//        settings.edit().putInt("cmonth",month).apply();
+//        settings.edit().putInt("cyear",year).apply();
+//
+//        settings.edit().putLong("chooseday" , chooseday).apply();
 
         if (isBound) {
             unbind();
             isBound = false;
         }
-        if (mMyService != null)
+        if (mMyService != null) {
             mMyService.buildUpdate();
-
+        }
+        if(first)
+        {
+            settings.edit().putBoolean("first",false).apply();
+        }
     }
 
     public void unbind() {
