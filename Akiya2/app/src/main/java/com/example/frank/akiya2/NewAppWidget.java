@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 
@@ -28,11 +29,11 @@ public class NewAppWidget extends AppWidgetProvider
         if (pendingIntent == null) {
             pendingIntent = PendingIntent.getService(context, 0,
                     alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            //test
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+            views.setImageViewResource(R.id.imageView,R.drawable.setting);
+            appWidgetManager.updateAppWidget(appWidgetIds, views);
         }
-
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime(), UPDATE_DURATION, pendingIntent);
-
 
         //點圖
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
@@ -42,7 +43,11 @@ public class NewAppWidget extends AppWidgetProvider
 
         remoteViews.setOnClickPendingIntent(R.id.imageView, configPendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+
+        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime(), UPDATE_DURATION, pendingIntent);
     }
+
 
     @Override
     public void onDisabled(Context context) {
@@ -56,8 +61,8 @@ public class NewAppWidget extends AppWidgetProvider
     public void onReceive(Context context, Intent intent)
     {
         Log.d(TAG, "onReceive");
-
         super.onReceive(context, intent);
+
     }
 
 

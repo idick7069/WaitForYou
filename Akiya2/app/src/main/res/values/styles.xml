@@ -15,4 +15,99 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme3" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/japan_momo</item>
+        `<item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>`
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    //MENU
+    <style name="LinearLayout" />
+
+    <style name="LinearLayout.GuillotineItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">@dimen/guillotine_small_margin</item>
+    </style>
+
+    <style name="TextView" />
+
+    <style name="TextView.ToolbarTitle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextView.GuillotineItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/guillotine_small_margin</item>
+        <item name="android:textSize">@dimen/guillotine_item_text_size</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextView.GuillotineItem.Selected">
+        <item name="android:textColor">@color/selected_item_color</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/japan_su</item>
+    </style>
+
+    <style name="ImageView" />
+
+    <style name="ImageView.ContentItem">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="ImageView.Hamburger" parent="Widget.AppCompat.ActionButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/abc_action_bar_overflow_padding_start_material</item>
+    </style>
+
+    <style name="ImageView.GuillotineItem">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/guillotine_large_margin</item>
+    </style>
+
+    //dialog
+    <style name="MyDialog" parent="@android:style/Animation.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:windowBackground">@color/japan_su</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/japan_su</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="Translucent_NoTitle" parent="android:style/Theme.Dialog">
+
+        <item name="android:background">#00000000</item> <!-- 设置自定义布局的背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>  <!-- 设置window背景透明，也就是去边框 -->
+    </style>
+
 </resources>

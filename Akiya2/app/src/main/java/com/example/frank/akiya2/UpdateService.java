@@ -54,6 +54,7 @@ public class UpdateService extends Service
     {
         // TODO Auto-generated method stub
         Log.d("service","onBind");
+
         return mLocBin;
        // return null;
     }
@@ -80,6 +81,7 @@ public class UpdateService extends Service
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         appWidgetManager.updateAppWidget(new ComponentName(this, NewAppWidget.class), remoteViews);
         //remoteViews.setTextViewText(R.id.appwidget_text,"目前是"+i);
+
 
 
 
